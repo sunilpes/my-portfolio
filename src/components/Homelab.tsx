@@ -1,7 +1,7 @@
 import { Shield, HardDrive, Zap } from "lucide-react";
 import { FadeIn } from "./FadeIn";
 
-const lines: { prompt: string; out?: string; cls?: string }[] = [
+const lines: { prompt?: string; out?: string; cls?: string }[] = [
   { prompt: "$ uname -a", out: "Darwin macmini.local arm64 — Apple M2" },
   { prompt: "$ docker ps --format '{{.Names}}'" },
   { out: "  n8n-orchestrator       up 47d", cls: "text-emerald" },
