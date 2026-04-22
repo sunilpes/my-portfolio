@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react";
 import { motion, useMotionValue, animate } from "framer-motion";
 import { ArrowRight, Terminal, MapPin } from "lucide-react";
-
-const SUBTITLE =
-  "From raw event streams to actionable insight — building the infrastructure in between. 14 years across distributed systems, real-time analytics, and cloud data platforms.";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 function Typewriter({ text, startDelay }: { text: string; startDelay: number }) {
   const [displayed, setDisplayed] = useState("");
   const done = displayed.length === text.length;
 
   useEffect(() => {
+    setDisplayed("");
     let i = 0;
     const tid = setTimeout(() => {
       const iid = setInterval(() => {
@@ -52,6 +51,8 @@ function CountUp({ to, startDelay }: { to: number; startDelay: number }) {
 }
 
 export function Hero() {
+  const { t } = useLanguage();
+
   return (
     <section className="relative overflow-hidden px-6 pt-24 pb-32 md:pt-32 md:pb-40">
       <div className="mx-auto max-w-6xl">
@@ -67,7 +68,7 @@ export function Hero() {
           </span>
           <span className="font-mono text-xs tracking-widest text-silver-dim">
             <MapPin className="mr-1.5 inline h-3 w-3" />
-            HAMBURG, DE — AVAILABLE FOR ARCHITECTURE WORK
+            {t.hero.badge}
           </span>
         </motion.div>
 
@@ -86,7 +87,7 @@ export function Hero() {
           transition={{ duration: 0.01, delay: 0.8 }}
           className="mt-6 min-h-[4rem] max-w-2xl text-lg text-silver-dim md:text-2xl"
         >
-          <Typewriter text={SUBTITLE} startDelay={850} />
+          <Typewriter text={t.hero.subtitle} startDelay={850} />
         </motion.p>
 
         <motion.div
@@ -100,14 +101,14 @@ export function Hero() {
             className="group inline-flex items-center gap-2 rounded-md bg-emerald px-6 py-3 font-mono text-sm font-medium text-primary-foreground transition-all hover:glow-emerald"
           >
             <Terminal className="h-4 w-4" />
-            View Career
+            {t.hero.viewCareer}
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </a>
           <a
             href="#contact"
             className="inline-flex items-center gap-2 rounded-md border border-border bg-surface/60 px-6 py-3 font-mono text-sm text-silver backdrop-blur transition-colors hover:border-emerald/40 hover:text-emerald"
           >
-            Get in Touch
+            {t.hero.getInTouch}
           </a>
 
           <div className="ml-2 flex items-center gap-3 border-l border-border pl-6">
@@ -115,9 +116,9 @@ export function Hero() {
               <CountUp to={14} startDelay={500} />+
             </span>
             <span className="font-mono text-xs uppercase leading-tight tracking-widest text-silver-dim">
-              Years
+              {t.hero.years}
               <br />
-              Experience
+              {t.hero.experience}
             </span>
           </div>
         </motion.div>

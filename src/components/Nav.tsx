@@ -1,16 +1,19 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Menu, X, Terminal } from "lucide-react";
-
-const links = [
-  { href: "#about", label: "About" },
-  { href: "#projects", label: "Projects" },
-  { href: "#milestones", label: "Milestones" },
-  { href: "#contact", label: "Contact" },
-];
+import { useLanguage } from "@/i18n/LanguageContext";
+import type { Language } from "@/i18n/content";
 
 export function Nav() {
   const [open, setOpen] = useState(false);
+  const { lang, setLang, t } = useLanguage();
+
+  const links = [
+    { href: "#about", label: t.nav.about },
+    { href: "#projects", label: t.nav.projects },
+    { href: "#milestones", label: t.nav.milestones },
+    { href: "#contact", label: t.nav.contact },
+  ];
 
   return (
     <header className="sticky top-0 z-50 border-b border-border/60 bg-background/70 backdrop-blur-xl">
@@ -34,12 +37,15 @@ export function Nav() {
           ))}
         </nav>
 
-        <a
-          href="#contact"
-          className="hidden rounded-md border border-emerald/40 bg-emerald/10 px-4 py-2 font-mono text-xs uppercase tracking-widest text-emerald transition-all hover:bg-emerald/20 hover:glow-emerald md:inline-block"
-        >
-          Get in Touch
-        </a>
+        <div className="hidden items-center gap-3 md:flex">
+          <LangToggle lang={lang} setLang={setLang} />
+          <a
+            href="#contact"
+            className="rounded-md border border-emerald/40 bg-emerald/10 px-4 py-2 font-mono text-xs uppercase tracking-widest text-emerald transition-all hover:bg-emerald/20 hover:glow-emerald"
+          >
+            {t.nav.getInTouch}
+          </a>
+        </div>
 
         <button
           aria-label="Toggle menu"
@@ -63,16 +69,41 @@ export function Nav() {
                 {l.label}
               </a>
             ))}
-            <a
-              href="#contact"
-              onClick={() => setOpen(false)}
-              className="mt-4 rounded-md border border-emerald/40 bg-emerald/10 px-4 py-3 text-center font-mono text-xs uppercase tracking-widest text-emerald"
-            >
-              Get in Touch
-            </a>
+            <div className="mt-4 flex items-center justify-between gap-3">
+              <LangToggle lang={lang} setLang={setLang} />
+              <a
+                href="#contact"
+                onClick={() => setOpen(false)}
+                className="flex-1 rounded-md border border-emerald/40 bg-emerald/10 px-4 py-3 text-center font-mono text-xs uppercase tracking-widest text-emerald"
+              >
+                {t.nav.getInTouch}
+              </a>
+            </div>
           </nav>
         </div>
       )}
     </header>
+  );
+}
+
+function LangToggle({ lang, setLang }: { lang: Language; setLang: (l: Language) => void }) {
+  const btn = (code: Language, label: string) => (
+    <button
+      key={code}
+      onClick={() => setLang(code)}
+      aria-pressed={lang === code}
+      className={`px-2 py-1 font-mono text-[11px] uppercase tracking-widest transition-colors ${
+        lang === code ? "text-emerald" : "text-silver-dim hover:text-silver"
+      }`}
+    >
+      {label}
+    </button>
+  );
+  return (
+    <div className="flex items-center rounded-md border border-border bg-surface/60 px-1 backdrop-blur">
+      {btn("en", "EN")}
+      <span className="text-border">|</span>
+      {btn("de", "DE")}
+    </div>
   );
 }
