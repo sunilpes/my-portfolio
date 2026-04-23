@@ -143,6 +143,23 @@ const en = {
       locationValue: "Hamburg, Germany",
     },
   },
+  chat: {
+    buttonLabel: "Send a message",
+    heading: "Send a message",
+    subheading: "Goes straight to my Telegram",
+    namePlaceholder: "Your name (optional)",
+    messagePlaceholder: "What's on your mind?",
+    send: "Send message",
+    sending: "Sending…",
+    sent: "Message sent!",
+    sentSub: "I'll get back to you soon.",
+    sendAnother: "Send another",
+    waitSeconds: (s: number) => `Wait ${s}s`,
+    cooldownMsg: (s: number) => `Please wait ${s}s before sending again.`,
+    errorGeneric: "Something went wrong. Try again.",
+    errorNetwork: "Network error. Please try again.",
+    errorSecurity: "Please complete the security check.",
+  },
 };
 
 const de: typeof en = {
@@ -287,6 +304,23 @@ const de: typeof en = {
       locationLabel: "Standort:",
       locationValue: "Hamburg, Deutschland",
     },
+  },
+  chat: {
+    buttonLabel: "Nachricht senden",
+    heading: "Nachricht senden",
+    subheading: "Landet direkt in meinem Telegram",
+    namePlaceholder: "Ihr Name (optional)",
+    messagePlaceholder: "Was liegt Ihnen auf dem Herzen?",
+    send: "Nachricht absenden",
+    sending: "Wird gesendet…",
+    sent: "Nachricht gesendet!",
+    sentSub: "Ich melde mich bald bei Ihnen.",
+    sendAnother: "Weitere Nachricht senden",
+    waitSeconds: (s: number) => `Warten ${s}s`,
+    cooldownMsg: (s: number) => `Bitte warten Sie ${s}s, bevor Sie erneut senden.`,
+    errorGeneric: "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.",
+    errorNetwork: "Netzwerkfehler. Bitte versuchen Sie es erneut.",
+    errorSecurity: "Bitte schließen Sie die Sicherheitsprüfung ab.",
   },
 };
 

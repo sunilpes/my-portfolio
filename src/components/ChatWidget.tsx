@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { MessageCircle, X, Send, CheckCircle, AlertCircle, Clock } from "lucide-react";
 import { useLocation } from "@tanstack/react-router";
+import { content } from "@/i18n/content";
+import type { Language } from "@/i18n/content";
 
 type Status = "idle" | "sending" | "sent" | "error" | "cooldown";
 
@@ -22,6 +24,10 @@ declare global {
 }
 
 export function ChatWidget() {
+  const location = useLocation();
+  const lang = (location.pathname.split("/")[1] as Language) in content ? (location.pathname.split("/")[1] as Language) : "en";
+  const c = content[lang].chat;
+
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
@@ -40,7 +46,6 @@ export function ChatWidget() {
   const turnstileRef = useRef<HTMLDivElement>(null);
   const turnstileWidgetId = useRef<string>("");
   const cooldownTimer = useRef<ReturnType<typeof setInterval> | null>(null);
-  const location = useLocation();
 
   // Focus textarea when panel opens
   useEffect(() => {
@@ -200,7 +205,7 @@ export function ChatWidget() {
       {/* Floating button */}
       <button
         onClick={() => setOpen((v) => !v)}
-        aria-label={open ? "Close chat" : "Send a message"}
+        aria-label={open ? "Close chat" : c.buttonLabel}
         className={`fixed bottom-6 right-6 z-50 grid h-13 w-13 place-items-center rounded-full shadow-lg transition-all duration-200 ${
           open
             ? "border border-border bg-surface text-silver-dim hover:text-silver"
@@ -219,8 +224,8 @@ export function ChatWidget() {
               <MessageCircle className="h-4 w-4" />
             </span>
             <div>
-              <p className="font-mono text-sm font-medium text-silver">Send a message</p>
-              <p className="font-mono text-[10px] text-silver-dim">Goes straight to my Telegram</p>
+              <p className="font-mono text-sm font-medium text-silver">{c.heading}</p>
+              <p className="font-mono text-[10px] text-silver-dim">{c.subheading}</p>
             </div>
           </div>
 
@@ -229,13 +234,13 @@ export function ChatWidget() {
             {status === "sent" ? (
               <div className="flex flex-col items-center gap-3 py-6 text-center">
                 <CheckCircle className="h-10 w-10 text-emerald" />
-                <p className="font-mono text-sm font-medium text-silver">Message sent!</p>
-                <p className="font-mono text-xs text-silver-dim">I'll get back to you soon.</p>
+                <p className="font-mono text-sm font-medium text-silver">{c.sent}</p>
+                <p className="font-mono text-xs text-silver-dim">{c.sentSub}</p>
                 <button
                   onClick={handleReset}
                   className="mt-2 rounded-md border border-border px-4 py-1.5 font-mono text-xs text-silver-dim transition-colors hover:border-emerald/40 hover:text-silver"
                 >
-                  Send another
+                  {c.sendAnother}
                 </button>
               </div>
             ) : (
@@ -254,7 +259,7 @@ export function ChatWidget() {
 
                 <input
                   type="text"
-                  placeholder="Your name (optional)"
+                  placeholder={c.namePlaceholder}
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   maxLength={100}
@@ -263,7 +268,7 @@ export function ChatWidget() {
 
                 <textarea
                   ref={textareaRef}
-                  placeholder="What's on your mind?"
+                  placeholder={c.messagePlaceholder}
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   maxLength={2000}
@@ -285,10 +290,7 @@ export function ChatWidget() {
                       ? <Clock className="h-3.5 w-3.5 shrink-0" />
                       : <AlertCircle className="h-3.5 w-3.5 shrink-0" />
                     }
-                    {status === "cooldown"
-                      ? `Please wait ${cooldownLeft}s before sending again.`
-                      : errorMsg
-                    }
+                    {status === "cooldown" ? c.cooldownMsg(cooldownLeft) : errorMsg}
                   </div>
                 )}
 
@@ -300,17 +302,17 @@ export function ChatWidget() {
                   {status === "sending" ? (
                     <>
                       <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-background/30 border-t-background" />
-                      Sending…
+                      {c.sending}
                     </>
                   ) : status === "cooldown" ? (
                     <>
                       <Clock className="h-3.5 w-3.5" />
-                      Wait {cooldownLeft}s
+                      {c.waitSeconds(cooldownLeft)}
                     </>
                   ) : (
                     <>
                       <Send className="h-3.5 w-3.5" />
-                      Send message
+                      {c.send}
                     </>
                   )}
                 </button>
