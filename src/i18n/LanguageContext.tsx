@@ -1,4 +1,5 @@
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import { createContext, useContext, useEffect, type ReactNode } from "react";
+import { useNavigate } from "@tanstack/react-router";
 import { content, type Content, type Language } from "./content";
 
 type Ctx = {
@@ -11,21 +12,23 @@ const LanguageContext = createContext<Ctx | null>(null);
 
 const STORAGE_KEY = "site-lang";
 
-function readInitialLang(): Language {
-  if (typeof window === "undefined") return "en";
-  const stored = window.localStorage.getItem(STORAGE_KEY);
-  return stored === "de" ? "de" : "en";
-}
-
-export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [lang, setLangState] = useState<Language>(readInitialLang);
+export function LanguageProvider({
+  lang,
+  children,
+}: {
+  lang: Language;
+  children: ReactNode;
+}) {
+  const navigate = useNavigate();
 
   useEffect(() => {
     window.localStorage.setItem(STORAGE_KEY, lang);
     document.documentElement.lang = lang;
   }, [lang]);
 
-  const setLang = (l: Language) => setLangState(l);
+  const setLang = (newLang: Language) => {
+    navigate({ to: "/$lang", params: { lang: newLang }, resetScroll: false });
+  };
 
   return (
     <LanguageContext.Provider value={{ lang, setLang, t: content[lang] }}>

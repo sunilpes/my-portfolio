@@ -90,16 +90,16 @@ export function Projects() {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-3 gap-4 lg:w-72 lg:shrink-0">
+                  <div className="grid grid-cols-3 gap-3 lg:w-[360px] lg:shrink-0">
                     {p.metrics.map((m) => (
                       <div
                         key={m.label}
-                        className="rounded-lg border border-border bg-background/40 p-4 text-center"
+                        className="flex min-w-0 flex-col items-center justify-center rounded-lg border border-border bg-background/40 px-2 py-3 text-center"
                       >
-                        <p className="text-xl font-semibold text-emerald">
+                        <p className="w-full break-words text-lg font-semibold leading-tight text-emerald">
                           <AnimatedMetric value={m.value} />
                         </p>
-                        <p className="mt-1 font-mono text-[10px] uppercase leading-tight tracking-widest text-silver-dim">
+                        <p className="mt-1.5 w-full break-words font-mono text-[10px] uppercase leading-tight tracking-wider text-silver-dim hyphens-auto">
                           {m.label}
                         </p>
                       </div>

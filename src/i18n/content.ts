@@ -27,7 +27,7 @@ const en = {
     traits: [
       { label: "Current Role", value: "Senior Data Engineer, Verve Group" },
       { label: "Based in", value: "Hamburg, Germany" },
-      { label: "Open to", value: "Consulting · Senior IC · Architecture Reviews" },
+      { label: "Open to", value: "Consulting · Staff IC · Architecture Roles" },
       { label: "Languages", value: "English · German · Hindi · Kannada" },
     ],
     downloadCV: "Download CV",
@@ -152,7 +152,7 @@ const de: typeof en = {
     traits: [
       { label: "Aktuelle Rolle", value: "Senior Data Engineer, Verve Group" },
       { label: "Standort", value: "Hamburg, Deutschland" },
-      { label: "Offen für", value: "Beratung · Senior IC · Architektur-Reviews" },
+      { label: "Offen für", value: "Beratung · Staff IC · Architektur-Rollen" },
       { label: "Sprachen", value: "Englisch · Deutsch · Hindi · Kannada" },
     ],
     downloadCV: "Lebenslauf herunterladen",
@@ -184,7 +184,7 @@ const de: typeof en = {
         metrics: [
           { value: "500 TB", label: "migriert" },
           { value: "−35%", label: "Speicherkosten" },
-          { value: "+40%", label: "Verarbeitungsgeschwindigkeit" },
+          { value: "+40%", label: "Durchsatz" },
         ],
         stack: ["Apache Spark", "GKE", "Google Dataproc", "BigQuery"],
       },
