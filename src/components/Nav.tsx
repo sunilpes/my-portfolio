@@ -47,6 +47,17 @@ export function Nav() {
               {l.label}
             </a>
           ))}
+          <Link
+            to="/$lang/reading"
+            params={{ lang }}
+            className="group relative font-mono text-xs uppercase tracking-widest text-silver-dim transition-colors hover:text-emerald"
+          >
+            <span
+              className="pointer-events-none absolute bottom-[-20px] left-1/2 h-20 w-24 -translate-x-1/2 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+              style={{ background: "radial-gradient(ellipse at bottom, oklch(0.696 0.17 162.48 / 0.25) 0%, transparent 70%)" }}
+            />
+            Reading
+          </Link>
         </nav>
 
         <div className="hidden items-center gap-3 md:flex">
@@ -81,6 +92,14 @@ export function Nav() {
                 {l.label}
               </a>
             ))}
+            <Link
+              to="/$lang/reading"
+              params={{ lang }}
+              onClick={() => setOpen(false)}
+              className="border-b border-border/50 py-3 font-mono text-sm uppercase tracking-widest text-silver-dim hover:text-emerald"
+            >
+              Reading
+            </Link>
             <div className="mt-4 flex items-center justify-between gap-3">
               <LangToggle currentLang={lang} onNavigate={() => setOpen(false)} />
               <a
