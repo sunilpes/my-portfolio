@@ -21,8 +21,12 @@ export function Nav() {
         <Link
           to="/$lang"
           params={{ lang }}
-          className="flex items-center gap-2 font-mono text-sm tracking-tight"
+          className="group relative flex items-center gap-2 font-mono text-sm tracking-tight"
         >
+          <span
+            className="pointer-events-none absolute bottom-[-20px] left-1/2 h-20 w-32 -translate-x-1/2 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+            style={{ background: "radial-gradient(ellipse at bottom, oklch(0.696 0.17 162.48 / 0.25) 0%, transparent 70%)" }}
+          />
           <span className="grid h-8 w-8 place-items-center rounded-md bg-emerald/10 text-emerald">
             <Terminal className="h-4 w-4" />
           </span>
@@ -34,8 +38,12 @@ export function Nav() {
             <a
               key={l.href}
               href={l.href}
-              className="font-mono text-xs uppercase tracking-widest text-silver-dim transition-colors hover:text-emerald"
+              className="group relative font-mono text-xs uppercase tracking-widest text-silver-dim transition-colors hover:text-emerald"
             >
+              <span
+                className="pointer-events-none absolute bottom-[-20px] left-1/2 h-20 w-24 -translate-x-1/2 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                style={{ background: "radial-gradient(ellipse at bottom, oklch(0.696 0.17 162.48 / 0.25) 0%, transparent 70%)" }}
+              />
               {l.label}
             </a>
           ))}
