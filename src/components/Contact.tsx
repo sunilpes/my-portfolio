@@ -13,7 +13,7 @@ const channels = [
     icon: Linkedin,
     key: "linkedin" as const,
     value: "in/sunilpandith",
-    href: "https://www.linkedin.com/in/sunilpandith",
+    href: "https://www.linkedin.com/in/sunil-pandith-96bb1032/",
   },
   {
     icon: Github,
